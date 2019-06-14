@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block extra_style %}
+
+
+{% endblock %}
+    <style>
+         .card-body {
+              width:70px;
+              padding:0 5px;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              white-space:nowrap;
+          }
+    </style>
+{% block content %}
+
+<!--{% for object in object_list %}-->
+<!--    <div class="card mt-3" style="width: 23%;">-->
+<!--        <div class="card-header">-->
+<!--    [{{object.category}}]-->
+<!--  </div>-->
+<!--      <img src="{{object.image.url}}" class="card-img-top" alt="{{object.name}}">-->
+<!--      <div class="card-body">-->
+<!--        <h5 class="card-title">{{object.name}}</h5>-->
+<!--        <p class="card-text">{{object.name|truncatechars:30}}</p>-->
+<!--      </div>-->
+<!--      <ul class="list-group list-group-flush">-->
+<!--        <li class="list-group-item">Price : {{object.price}}</li>-->
+<!--        <li class="list-group-item">Stock : {{object.stock}}</li>-->
+<!--          <li class="list-group-item"><span class="badge badge-success">Order Avaiable</span></li>-->
+<!--      </ul>-->
+<!--      <div class="card-body">-->
+<!--        <a href="{{object.get_absolute_url}}" class="card-link">Detail</a>-->
+<!--        <a href="#" class="card-link">Cart</a>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<div class="row">
+   <div class="col-md-12">
+       <div id="mdb-lightbox-ui"></div>
+       <div class="mdb-lightbox no-margin">
+           <div class="row">
+               {% for object in object_list %}
+               <figure class="col-md-4">
+                   <div style="width: 18rem;">
+                       <img src="{{object.image.url}}" class="card-img-top" alt="...">
+                       <div class="card-body">
+                           <h5 class="card-title">{{object.name}}</h5>
+                           <p class="card-text">Price : {{object.price}}</p>
+                           <p class="card-text" id="memo">{{object.description|striptags|safe}}</p>
+                           <p class="card-text"></p>
+                               <a href="{{object.get_absolute_url}}" class="btn btn-primary">Detail</a>
+                                <a href="" class="btn btn-primary">장바구니 담기</a>
+                           </p>
+                       </div>
+                   </div>
+               </figure>
+               {% endfor %}
+           </div>
+       </div>
+       <div class="col"></div>
+   </div>
+</div>
+{% endfor %}
+
+{% endblock %}

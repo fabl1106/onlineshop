@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}오늘마켓{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% block extra_style %}
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/">오늘마켓</a>
+
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <li class="nav-item">
+            <a class="btn btn-sm btn-outline-info mr-1" href="{% url 'cart_detail' %}">
+                {% if cart|length > 0 %}
+                {{cart.get_total_price}} with {{cart|length}} items
+                {% else %}
+                Empty
+                {% endif %}
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'account_logout' %}">Signout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'account_login' %}">Signin/Signup</a>
+        </li>
+        {% endif %}
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                {% include 'category_list.html' %}
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <h1>오늘의 인기매물 보기</h1>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-10 col-md-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+<script
+        src="http://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+{% block extra_script %}
+{% endblock %}
+</body>
+</html>
